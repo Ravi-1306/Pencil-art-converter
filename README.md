@@ -8,8 +8,8 @@ A web-based application that transforms your photos into stunning pencil sketche
 This application applies sophisticated image processing techniques to simulate the effect of hand-drawn pencil sketches. The conversion process involves grayscale conversion, image inversion, Gaussian blur, and pixel blending to create realistic sketch effects. Users can choose between a classic black-and-white pencil sketch or a colored artistic version, all processed in real-time through an intuitive web interface.
 
 ## Example
+<img width="913" height="759" alt="image" src="https://github.com/user-attachments/assets/31584088-9cfb-41d6-9d0f-a635937ef5e2" />
 
-![Example](assets/example.png)
 
 ## Features
 
@@ -62,4 +62,4 @@ PNG, JPG, JPEG, BMP, TIFF, WEBP
 
 ---
 
-**Made with ❤️ using OpenCV & Flask**
+**Made with using OpenCV & Flask**
