@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo to Sketch Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 28L8 4L28 8L24 28L4 28Z" fill="url(#gradient)" stroke="#fff" stroke-width="2"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="4" y1="4" x2="28" y2="28">
+                            <stop offset="0%" stop-color="#8B5CF6"/>
+                            <stop offset="100%" stop-color="#3B82F6"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>SketchAI</span>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Turn photos to stunning <br>
+                    <span class="gradient-text">sketches in seconds</span>
+                </h1>
+                <p class="hero-description">
+                    Bring your artistic vision to life using our photo to sketch converter.
+                    With the click of a button, turn an ordinary image into an unforgettable drawing.
+                </p>
+            </div>
+        </section>
+
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-container" id="uploadContainer">
+                <input type="file" id="fileInput" accept="image/*" hidden>
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    <h3 class="upload-title">Upload your image</h3>
+                    <p class="upload-description">or drop it here</p>
+                    <button class="upload-button" id="uploadButton">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                        Choose Image
+                    </button>
+                </div>
+            </div>
+
+            <!-- Style Selector -->
+            <div class="style-selector" id="styleSelector" style="display: none;">
+                <h3 class="style-title">Choose Your Style</h3>
+                <div class="style-options">
+                    <button class="style-option active" data-style="classic">
+                        <div class="style-preview style-classic"></div>
+                        <span>Classic Sketch</span>
+                    </button>
+                    <button class="style-option" data-style="colored">
+                        <div class="style-preview style-colored"></div>
+                        <span>Colored Sketch</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Loading Indicator -->
+            <div class="loading" id="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Creating your masterpiece...</p>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <h2 class="results-title">Your Artistic Transformation</h2>
+            
+            <div class="comparison-container">
+                <div class="image-card">
+                    <div class="card-header">
+                        <h3>Original</h3>
+                    </div>
+                    <div class="image-wrapper">
+                        <img id="originalImage" src="" alt="Original">
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </div>
+
+                <div class="image-card">
+                    <div class="card-header">
+                        <h3>Sketch</h3>
+                        <button class="download-btn" id="downloadBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download
+                        </button>
+                    </div>
+                    <div class="image-wrapper">
+                        <img id="sketchImage" src="" alt="Sketch">
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-secondary" id="tryAgainBtn">Try Another Image</button>
+                <button class="btn btn-primary" id="enhanceBtn">Enhance Further</button>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <h2 class="section-title">Unleash your inner artist</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Get your sketch in seconds with our optimized algorithm</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Multiple Styles</h3>
+                    <p>Choose from classic pencil, colored sketch, and more artistic styles</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>Works Everywhere</h3>
+                    <p>Use on any device - desktop, tablet, or mobile</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Private & Secure</h3>
+                    <p>Your images are processed securely and never stored</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 SketchAI. Powered by OpenCV & Flask</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
